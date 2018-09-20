@@ -1,0 +1,53 @@
+* {
+  font-family: din-2014, sans-serif;
+  font-style: normal;
+  /* font-weight: 600; */
+  letter-spacing: .25px;
+  line-height: 19px;
+}
+
+.main-div-closed {
+  background-color: #1b1b1d;
+  width: 682px;
+  padding: 30px;
+  margin: 30px;
+}
+
+.main-div-open {
+  background-color: #fff;
+  width: 682px;
+  padding: 30px;
+  margin: 30px;
+}
+
+.main-header {
+  width: 676px;
+}
+
+.is-open-header {
+  color: #fff;
+}
+
+.label-header {
+  width: 676px;
+  text-align: center;
+}
+
+.right-now {
+  font-size: 12px;
+  font-weight: 400px;
+}
+
+.prices-container {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+  width: 676px;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: .25px;
+  line-height: 19px;
+}
+
+.dollar-amount {
+  font-weight: normal;
+}
