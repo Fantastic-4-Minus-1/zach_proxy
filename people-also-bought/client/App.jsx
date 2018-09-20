@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom';
 import '../public/stylesheet.css';
 import moment from 'moment';
 import CompanyList from './CompanyList.jsx';
-import dummyData from './dummyData.js'
-const axios = require('axios');
 
+const axios = require('axios');
 
 class App extends React.Component {
   constructor(props) {
@@ -13,12 +12,11 @@ class App extends React.Component {
     this.state = {
       companies: [],
       currentCompanies: [],
-      currentPrices: [14.32, 52.75, 67.37, 36.04],
-      currentPercentages: [23.44, 43.85, 15.01, 12.99],
+      currentPrices: [43.25, 75.23, 98.12, 312.12],
+      currentPercentages: [14.23, 18.23, 45.23, 38.12],
       min: 1,
       max: 8,
-      priceisUp: true,
-      marketisOpen: true,
+      marketisOpen: false,
       showRight: true,
       showLeft: false,
     };
@@ -53,7 +51,7 @@ class App extends React.Component {
 
   updateData() {
     const { currentCompanies } = this.state;
-    const appScroll = this;
+    const thisFunc = this;
 
     function percentDiff(priceOne, priceTwo) {
       return (((priceTwo - priceOne) / priceOne) * 100);
@@ -66,7 +64,7 @@ class App extends React.Component {
         const isClosed = moment('15:00', 'hh:mm');
         const marketisOpen = (time.isBetween(isOpen, isClosed));
 
-        appScroll.setState({
+        thisFunc.setState({
           currentPrices: [
             currentCompanies[0].currentDay[i].currentPrice,
             currentCompanies[1].currentDay[i].currentPrice,
@@ -88,11 +86,10 @@ class App extends React.Component {
         if (i++) {
           theLoop(i);
         }
-      }, 5000);
+      }, 10000);
     }
     theLoop(1);
   }
-
 
   handleArrowClick(e) {
     const { showLeft, showRight, companies } = this.state;
@@ -126,29 +123,28 @@ class App extends React.Component {
       currentCompanies,
       currentPrices,
       marketisOpen,
-      priceisUp,
       showRight,
       showLeft,
     } = this.state;
 
     return (
-      <div id="peopleAlsoBought">
-        <h1>People Also Bought</h1>
+      <div className={marketisOpen ? 'robinhood-is-open' : 'robinhood-is-closed'}>
+        <h1 className={`header-title ${marketisOpen ? 'robinhood-is-open' : 'robinhood-is-closed'} `}>People Also Bought</h1>
         <div>
           <CompanyList
             companies={currentCompanies}
             currentPrices={currentPrices}
             currentPercentages={currentPercentages}
             marketisOpen={marketisOpen}
-            price={priceisUp}
             showRight={showRight}
             showLeft={showLeft}
             handleArrowClick={this.handleArrowClick}
+            updatePriceChange={this.updatePriceChange}
           />
         </div>
       </div>
     );
   }
 }
-// window.peopleAlsoBought = App;
+
 ReactDOM.render(<App />, document.getElementById('peopleAlsoBought'));
