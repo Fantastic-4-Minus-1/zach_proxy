@@ -31,7 +31,7 @@ componentDidMount() {
     const isClosed = moment('15:00', 'hh:mm');
     const marketisOpen = (time.isBetween(isOpen, isClosed));
     this.setState({ marketisOpen });
-    axios.get('http://localhost:3003/people-also-bought', {
+    axios.get('http://localhost:3003/API/people-also-bought', {
       params: {
         group: this.getRandomIntInclusive(1, 8),
       },

@@ -35,7 +35,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3004/stocks/sideBar')
+    axios.get('http://localhost:3004/API/sideBar')
       .then(res => {
         const data = res.data;
         this.setState({

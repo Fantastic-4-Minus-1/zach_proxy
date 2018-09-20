@@ -29,7 +29,7 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-app.get('/people-also-bought', (req, res) => {
+app.get('/API/people-also-bought', (req, res) => {
   Company.find({ group: getRandomIntInclusive(1, 8) }).exec((err, results) => {
     if (err) {
       res.send(err);

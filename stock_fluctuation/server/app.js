@@ -25,7 +25,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-app.use('/api', routes);
+app.use('/API/graph', routes);
 module.exports = {
   app,
   mongoose

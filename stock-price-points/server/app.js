@@ -21,7 +21,7 @@ app.get('/:company', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-app.get('/data/company/:company', (req, res) => {
+app.get('/API/stockPricePoints/:company', (req, res) => {
   const { company } = req.params;
 
   database.Company.find({ company }, null, (err, result) => {
@@ -33,7 +33,7 @@ app.get('/data/company/:company', (req, res) => {
   });
 });
 
-app.get('/data/companies', (req, res) => {
+app.get('/API/stockPricePoints', (req, res) => {
   // const { id } = req.params;
   // database.Company.find({ _id: id }, null, (err, result) => {
   database.Company.find({}, null, (err, result) => {

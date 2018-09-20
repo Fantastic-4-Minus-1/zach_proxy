@@ -28,7 +28,7 @@ mongoose.connect('mongodb://localhost/fecdata', {useNewUrlParser: true}, (err) =
 })
 
 
-app.get('/stocks/sideBar', function(req, res) {
+app.get('/API/sideBar', function(req, res) {
   db.find({}, function(err, results) {
   	if (err) {
   		return console.log(err)
@@ -38,7 +38,7 @@ app.get('/stocks/sideBar', function(req, res) {
   })
 })
 
-app.get('/stocks/sideBar/:company', (req, res) => {
+app.get('/API/sideBar/:company', (req, res) => {
   const company = req.params.company;
   db.find({ company }, null, (err, result) => {
     if (err) {
@@ -49,7 +49,7 @@ app.get('/stocks/sideBar/:company', (req, res) => {
   })
 })
 
-app.use('/stocks/sideBar', sideBar)
+app.use('/API/sideBar', sideBar)
 
 app.listen(PORT, () => {
   console.log("Listening to port: ", PORT)
