@@ -25,7 +25,12 @@ class App extends React.Component {
     this.handleArrowClick = this.handleArrowClick.bind(this);
   }
 
-  componentDidMount() {
+componentDidMount() {
+    const time = moment();
+    const isOpen = moment('9:00', 'hh:mm');
+    const isClosed = moment('15:00', 'hh:mm');
+    const marketisOpen = (time.isBetween(isOpen, isClosed));
+    this.setState({ marketisOpen });
     axios.get('http://localhost:3003/people-also-bought', {
       params: {
         group: this.getRandomIntInclusive(1, 8),

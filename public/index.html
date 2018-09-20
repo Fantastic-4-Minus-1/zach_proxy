@@ -7,13 +7,19 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/uikit/3.0.0-rc.15/css/uikit.min.css" />
+
     <title>Robin Hackers</title>
   </head>
   <body>
-    <div id="stockFluctuation"></div>
-    <div id="stockPricePoints"></div>
-    <div id="peopleAlsoBought"></div>
-    <div id="navigationBar"></div>
+    <div class="uk-container-large">
+    <img src="header.png" alt="">
+    </div>
+    <div class="large-container">
+      <div id="stockFluctuation"></div>
+      <div id="stockPricePoints"></div>
+      <div id="peopleAlsoBought"></div>
+      <div id="navigationBar"></div>
+    <div>
     <script src="/lib/react.development.js"></script>
     <script src="/lib/react-dom.development.js"></script>
     <script src="http://localhost:3001/bundle.js"></script>
@@ -37,6 +43,19 @@
         React.createElement(navigationBar),
         document.getElementById('navigationBar')
       );
+    </script>
+    <script>
+      let body = document.querySelector('body');
+      let date = moment();
+      let beg = moment("09:00", "HH:mm");
+      let end = moment("15:00", "HH:mm");
+      if (date.isBetween(beg, end)) {
+        body.classList.add('day');
+        body.classList.remove('night');
+      } else {
+        body.classList.remove('day');
+        body.classList.add('night');
+      }
     </script>
   </body>
 </html>
