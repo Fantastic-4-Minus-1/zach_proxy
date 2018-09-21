@@ -28,7 +28,7 @@ mongoose.connect('mongodb://localhost/fecdata', {useNewUrlParser: true}, (err) =
 })
 
 
-app.get('/API/sideBar', function(req, res) {
+app.get('/api/sideBar', function(req, res) {
   db.find({}, function(err, results) {
   	if (err) {
   		return console.log(err)
@@ -38,18 +38,20 @@ app.get('/API/sideBar', function(req, res) {
   })
 })
 
-app.get('/API/sideBar/:company', (req, res) => {
+app.get('/api/sideBar/:company', (req, res) => {
   const company = req.params.company;
+  console.log(company)
   db.find({ company }, null, (err, result) => {
     if (err) {
       return console.log('callback error');
-    }
-    console.log(req.params)
+    } else {
+    console.log(result)
     return res.json(result);
+    }
   })
 })
 
-app.use('/API/sideBar', sideBar)
+app.use('/api/sideBar', sideBar)
 
 app.listen(PORT, () => {
   console.log("Listening to port: ", PORT)

@@ -29,7 +29,7 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-app.get('/API/people-also-bought', (req, res) => {
+app.get('/api/people-also-bought', (req, res) => {
   Company.find({ group: getRandomIntInclusive(1, 8) }).exec((err, results) => {
     if (err) {
       res.send(err);
@@ -38,6 +38,17 @@ app.get('/API/people-also-bought', (req, res) => {
     }
   });
 });
+
+app.get('/api/people-also-bought/:company', (req, res) => {
+  const company = req.params.companyAbbr;
+  Company.find({ company }, null, (err, result) => {
+    if (err) {
+      return console.log('callback error');
+    }
+    console.log(req.params.companyAbbr)
+    return res.json(result);
+  })
+})
 
 // app.listen(PORT, () => {
 //   console.log("Listening to port: ", PORT)

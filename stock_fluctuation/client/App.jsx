@@ -12,6 +12,7 @@ import Header from './components/header/Header.jsx';
 import GraphHeaderContainer from './components/graphHeader/GraphHeaderContainer.jsx';
 import Graph from './components/graph/Graph.jsx';
 import Footer from './components/footer/Footer.jsx';
+import getCompanyName from '../../utils/utils.js';
 
 export default class App extends Component {
   constructor() {
@@ -47,12 +48,12 @@ export default class App extends Component {
 
   componentDidMount() {
     setInterval(() => this.checkTime(), 1000);
-
+    const company = getCompanyName();
     axios
-      .get('http://localhost:3001/API/graph')
+      .get(`/api/graph/${company}`)
       .then(res => res.data)
       .then(data => {
-        const company = data[3];
+        const company = data[0];
         this.allTicks(company.tickers);
         this.setState({ companies: data, company });
       });

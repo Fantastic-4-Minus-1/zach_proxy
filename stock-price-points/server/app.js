@@ -21,19 +21,20 @@ app.get('/:company', (req, res) => {
   res.sendFile(path.join(__dirname, '../public/index.html'));
 });
 
-app.get('/API/stockPricePoints/:company', (req, res) => {
-  const { company } = req.params;
-
-  database.Company.find({ company }, null, (err, result) => {
+app.get('/api/stockPricePoints/:company', (req, res) => {
+  const company = req.params.company;
+  console.log(company)
+  database.Company.find({ companyAbbriev: company }, null, (err, result) => {
     if (err) {
       return console.log('CALLBACK ERROR!');
+    } else {
+      console.log('reqparams',req.params);
+      return res.json(result);
     }
-    console.log(req.params);
-    return res.json(result);
   });
 });
 
-app.get('/API/stockPricePoints', (req, res) => {
+app.get('/api/stockPricePoints', (req, res) => {
   // const { id } = req.params;
   // database.Company.find({ _id: id }, null, (err, result) => {
   database.Company.find({}, null, (err, result) => {

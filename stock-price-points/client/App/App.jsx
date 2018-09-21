@@ -5,6 +5,7 @@ import moment from 'moment';
 import BarChart from '../BarChart/BarChart.jsx';
 import PricesPaidHeader from '../PricesPaidHeader/PricesPaidHeader.jsx';
 import '../../public/styles.css';
+import getCompanyName from '../../../utils/utils.js';
 
 class App extends React.Component {
   constructor(props) {
@@ -33,17 +34,16 @@ class App extends React.Component {
     };
 
     this.componentDidMount = () => {
-      console.log('here')
       this.getDataSetInitialState();
     };
 
     this.getDataSetInitialState = () => {
-      axios.get(`http://localhost:3002/API/stockPricePoints/onecompany`)
+      const company = getCompanyName();
+      axios.get(`/api/stockPricePoints/${company}`)
         .then((output) => {
           const { data } = output;
           const { yearly, currentPrice } = data[0];
           const { yearAverage, yearLowest, yearHighest } = yearly;
-          console.log(currentPrice);
           // percentage Change Helper
           function percentageChange(valOne, valTwo) {
             return (((valTwo - valOne) / valOne) * 100);

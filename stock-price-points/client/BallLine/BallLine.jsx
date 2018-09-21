@@ -4,7 +4,6 @@ import Ball from './Ball/Ball.jsx';
 import Line from './Line/Line.jsx';
 
 const BallLine = ({ averageOnTheLine, marketIsOpen }) => {
-  console.log('avg on the line', averageOnTheLine);
   // updateAverageOnLine(valueOf(averageOnTheLine));
 
   return (
