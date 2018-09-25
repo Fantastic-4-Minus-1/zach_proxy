@@ -5,15 +5,11 @@ const parser = require('body-parser');
 const sideBar = require('./router/sideBar');
 const db = require('../db/db.js');
 const logger = require('morgan');
-require('dotenv').config();
 const app = express();
 const PORT = 3004;
 app.use(parser.json());
 app.use(logger("dev"));
 
-mongoose.connect(process.env.MONGODDB_URL, {useNewUrlParser: true}, (err) => {
-	console.log(err||"mongoDB connected!")
-})
 
 app.use(express.static(path.join(__dirname, '../public')))
 
@@ -25,6 +21,10 @@ app.use(function(req, res, next) {
 
 app.get('/:company', function(req, res) {
   res.sendFile(path.join(__dirname, '../public/index.html'));
+})
+
+mongoose.connect('mongodb://rvlee:kanjani8@ds111113.mlab.com:11113/fecdata', {useNewUrlParser: true}, (err) => {
+	console.log(err||"mongoDB connected!")
 })
 
 
@@ -39,26 +39,26 @@ app.get('/api/sideBar', function(req, res) {
 })
 
 
-app.get('/api/sideBar/:companyName', (req, res) => {
-  const company = req.params.companyName;
-  db.find({ companyName: company }, (err, company) => {
-    if (err) return console.log(err);
-    res.json(company);
-  })
-})
-
-// app.get('/api/sideBar/:company', (req, res) => {
-//   const company = req.params.company;
-//   console.log(company)
-//   db.find({ company }, null, (err, result) => {
-//     if (err) {
-//       return console.log('callback error');
-//     } else {
-//     console.log(result)
-//     return res.json(result);
-//     }
+// app.get('/api/sideBar/:companyName', (req, res) => {
+//   const company = req.params.companyName;
+  // db.find({ companyName: company }, (err, company) => {
+//     if (err) return console.log(err);
+//     res.json(company);
 //   })
 // })
+
+app.get('/api/sideBar/:company', (req, res) => {
+  const company = req.params.company;
+  console.log(company)
+  db.find({ company }, null, (err, result) => {
+    if (err) {
+      return console.log('callback error');
+    } else {
+    console.log(result)
+    return res.json(result);
+    }
+  })
+})
 
 app.use('/api/sideBar', sideBar)
 

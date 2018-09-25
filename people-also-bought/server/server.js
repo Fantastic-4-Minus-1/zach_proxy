@@ -7,29 +7,35 @@ const Company = require('../database/index.js');
 const handleListen = require('./handleListen.js');
 // const peoplebought = require('./router/peoplebought')
 
-mongoose.connect('mongodb://localhost/people-also-bought', { useNewUrlParser: true }, (err) => {
-  console.log(err || 'MongoDB connected');
-});
+mongoose.connect(
+  'mongodb://localhost/people-also-bought',
+  { useNewUrlParser: true },
+  err => {
+    console.log(err || 'MongoDB connected');
+  }
+);
 
 const app = express();
 const PORT = 3003;
 
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  );
+  next();
+});
 app.use(parser.json());
 app.use(parser.urlencoded({ extended: true }));
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, '../public')));
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-
-app.get('/api/people-also-bought', (req, res) => {
+app.get('/:company', (req, res) => {
+  console.log('hit');
   Company.find({ group: getRandomIntInclusive(1, 8) }).exec((err, results) => {
     if (err) {
       res.send(err);
@@ -40,15 +46,14 @@ app.get('/api/people-also-bought', (req, res) => {
 });
 
 app.get('/api/people-also-bought/:company', (req, res) => {
-  const company = req.params.companyAbbr;
-  Company.find({ company }, null, (err, result) => {
+  Company.find({ group: getRandomIntInclusive(1, 8) }).exec((err, results) => {
     if (err) {
-      return console.log('callback error');
+      res.send(err);
+    } else {
+      res.json(results);
     }
-    console.log(req.params.companyAbbr)
-    return res.json(result);
-  })
-})
+  });
+});
 
 // app.listen(PORT, () => {
 //   console.log("Listening to port: ", PORT)

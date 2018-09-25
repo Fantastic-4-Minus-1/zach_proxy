@@ -1,4 +1,4 @@
-import React from 'react';
+ cimport React from 'react';
 import ReactDOM from 'react-dom';
 import StickyBox from 'react-sticky-box';
 import axios from 'axios';
@@ -10,7 +10,6 @@ import StopLossOrder from './components/StopLossOrder.jsx';
 import StopLimitOrder from './components/StopLimitOrder.jsx';
 import defaultData from './defaultData.js';
 import PopUp from './components/PopUp.jsx';
-import getCompanyName from '../../utils/utils.js';
 import './openMarket.css';
 import './closedMarket.css';
 
@@ -37,7 +36,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const company = getCompanyName();
+    const company = `${window.location.pathname}`.split("/")[1];
     axios.get(`/api/sideBar/${company}`)
       .then((res) => {
         const data = res.data;
@@ -331,7 +330,7 @@ Deposit $
     const { marketOpen } = this.state;
     const className = marketOpen ? 'Opened' : 'Closed';
     return (
-      <div className={`component-container${className}`} id="navigationBar">
+      <div className={`component-container${className}`}>
         <div className={`content-sidebar${className}`}>
           <DropDownMenu handleClick={this.changeView} marketOpen={marketOpen} />
           {this.renderView()}
@@ -340,5 +339,5 @@ Deposit $
     );
   }
 }
-// window.navigationBar = App;
+
 ReactDOM.render(<App />, document.getElementById('navigationBar'));

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import '../public/stylesheet.css';
 import moment from 'moment';
 import CompanyList from './CompanyList.jsx';
+import getCompanyName from '../../utils/utils.js';
 
 const axios = require('axios');
 
@@ -30,8 +31,9 @@ componentDidMount() {
     const isOpen = moment('9:00', 'hh:mm');
     const isClosed = moment('15:00', 'hh:mm');
     const marketisOpen = (time.isBetween(isOpen, isClosed));
+    const company= getCompanyName();
     this.setState({ marketisOpen });
-    axios.get('/api/people-also-bought', {
+    axios.get(`/api/people-also-bought/${company}`, {
       params: {
         group: this.getRandomIntInclusive(1, 8),
       },

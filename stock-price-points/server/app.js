@@ -23,12 +23,12 @@ app.get('/:company', (req, res) => {
 
 app.get('/api/stockPricePoints/:company', (req, res) => {
   const company = req.params.company;
-  console.log(company)
+
   database.Company.find({ companyAbbriev: company }, null, (err, result) => {
     if (err) {
       return console.log('CALLBACK ERROR!');
     } else {
-      console.log('reqparams',req.params);
+
       return res.json(result);
     }
   });

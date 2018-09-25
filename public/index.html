@@ -45,25 +45,30 @@
       <img class="header-img" src="header.png" alt="">
     </div>
     <div class="large-container">
-      <div id="stockFluctuation"></div>
-      <div id="stockPricePoints"></div>
+      <div id="app"></div>
+      <div id="mainChart"></div>
       <div id="peopleAlsoBought"></div>
       <div id="navigationBar"></div>
     <div>
     <script src="./lib/react.development.js"></script>
     <script src="./lib/react-dom.development.js"></script>
-    <script src="http://localhost:3001/bundle.js"></script>
-    <script src="http://localhost:3002/bundle.js"></script>
-    <script src="http://localhost:3003/bundle.js"></script>
-    <script src="http://localhost:3004/bundle.js"></script>
+<!--     <script src="https://s3-us-west-1.amazonaws.com/stock-fluctuation/bundle.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/stock-price-point/bundle.js"></script>
+    <script src="https://s3-us-west-1.amazonaws.com/proxy-people-also-bought/bundle.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/side-nav-bar/bundle.js"></script> -->
+
+    <script src="https://s3.amazonaws.com/proxy-project/bundle.js"></script>
+    <script src="https://s3-us-west-1.amazonaws.com/microservice-stock/bundle.js"></script>
+    <script src="https://s3-us-west-1.amazonaws.com/people-also-bought/bundle.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/side-nav-bar/find+by+company/bundle.js"></script>
     <script>
       ReactDOM.render(
-        React.createElement(stockFluctuation),
-        document.getElementById('stockFluctuation')
+        React.createElement(app),
+        document.getElementById('app')
       );
       ReactDOM.render(
-        React.createElement(stockPricePoints),
-        document.getElementById('stockPricePoints')
+        React.createElement(mainChart),
+        document.getElementById('mainChart')
       );
       ReactDOM.render(
         React.createElement(peopleAlsoBought),
