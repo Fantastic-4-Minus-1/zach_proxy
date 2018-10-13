@@ -1,0 +1,49 @@
+config:
+  target: 'http://localhost:3000'
+  phases:
+    - duration: 15
+      arrivalRate: 5
+    - duration: 30
+      arrivalRate: 5
+      rampTo: 125
+    - duration: 250
+      arrivalRate: 125
+  payload:
+      path: "acronym.csv"
+      fields:
+        - "acronym0"
+        - "acronym1"
+        - "acronym2"
+        - "acronym3"
+        - "acronym4"
+        - "acronym5"
+        - "acronym6"
+        - "acronym7"
+        - "acronym8"
+        - "acronym9"
+      # order: "sequence"
+  defaults:
+scenarios:
+  - flow:
+    - loop:
+      - get:
+          url: "/{{ acronym0 }}"
+      - get:
+          url: "/{{ acronym1 }}"
+      - get:
+          url: "/{{ acronym2 }}"
+      - get:
+          url: "/{{ acronym3 }}"
+      - get:
+          url: "/{{ acronym4 }}"
+      - get:
+          url: "/{{ acronym5 }}"
+      - get:
+          url: "/{{ acronym6 }}"
+      - get:
+          url: "/{{ acronym7 }}"
+      - get:
+          url: "/{{ acronym8 }}"
+      - get:
+          url: "/{{ acronym9 }}"
+      count: 1
